@@ -5,6 +5,7 @@ import Square from '../assets/square.svg'
 import Rect from '../assets/rect.svg'
 import HeroBanner from '../assets/hero_banner.webp'
 import ChineseBanner from '../assets/Chinese_Logo S2.png'
+import Director from '../assets/directors.jpg'
 
 export default function Home() {
   const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
@@ -34,19 +35,19 @@ export default function Home() {
 
   const auctionLinkRef = useRef<HTMLDivElement>(null);
   const policyLinkRef = useRef<HTMLDivElement>(null);
-  const auctionLinkBtnHandler = () =>{
-    if(auctionLinkRef.current && policyLinkRef.current){
+  const auctionLinkBtnHandler = () => {
+    if (auctionLinkRef.current && policyLinkRef.current) {
       auctionLinkRef.current.classList.toggle("hidden")
-      if(!policyLinkRef.current.classList.contains("hidden")){
+      if (!policyLinkRef.current.classList.contains("hidden")) {
         policyLinkRef.current.classList.toggle("hidden")
       }
     }
   }
 
-  const policyLinkBtnHandler = () =>{
-    if(policyLinkRef.current && auctionLinkRef.current){
+  const policyLinkBtnHandler = () => {
+    if (policyLinkRef.current && auctionLinkRef.current) {
       policyLinkRef.current.classList.toggle("hidden")
-      if(!auctionLinkRef.current.classList.contains("hidden")){
+      if (!auctionLinkRef.current.classList.contains("hidden")) {
         auctionLinkRef.current.classList.toggle("hidden")
       }
     }
@@ -61,7 +62,7 @@ export default function Home() {
       ></div>
 
       {/* 導覽列-電腦 */}
-      <div className="sticky inset-0 z-40 max-w-7xl mx-auto">
+      <div className="fixed inset-0 z-40 max-w-7xl mx-auto">
         <nav className="flex justify-between items-center p-3">
           <div className="flex justify-center items-center gap-1">
             <div className="max-w-[40px]"><img className='w-full' src={LogoWhite} alt="Logo_white" /></div>
@@ -73,15 +74,15 @@ export default function Home() {
             <ul className="hidden lg:flex justify-center items-center gap-4 text-white text-xl font-bold">
               <li><button className='hover:neon-glow'>首頁</button></li>
               <li><button className='hover:neon-glow'>參與競標</button></li>
-              <li><button className='hover:neon-glow relative' onClick={()=>{auctionLinkBtnHandler()}} >拍賣資訊 V</button>
+              <li><button className='hover:neon-glow relative' onClick={() => { auctionLinkBtnHandler() }} >拍賣資訊 V</button>
                 <div ref={auctionLinkRef} className="hidden absolute buttom-0 flex flex-col justify-center items-start gap-2 rounded-lg border-pink-500 border-2 p-3 bg-black text-xl z-[45] w-[150px]">
                   <div>拍賣規則</div>
                   <div>付款方式</div>
                   <div>運送資訊</div>
                 </div>
               </li>
-              <li><button className='hover:neon-glow relative' onClick={()=>{policyLinkBtnHandler()}}>政策條款 V</button>
-               <div  ref={policyLinkRef} className="hidden absolute buttom-0 flex flex-col justify-center items-start gap-2 rounded-lg border-pink-500 border-2 p-3 bg-black text-xl z-[45] w-[150px]">
+              <li><button className='hover:neon-glow relative' onClick={() => { policyLinkBtnHandler() }}>政策條款 V</button>
+                <div ref={policyLinkRef} className="hidden absolute buttom-0 flex flex-col justify-center items-start gap-2 rounded-lg border-pink-500 border-2 p-3 bg-black text-xl z-[45] w-[150px]">
                   <div>隱私政策</div>
                   <div>退款政策</div>
                 </div>
@@ -130,6 +131,24 @@ export default function Home() {
             <div className="text-white text-xs">拍賣結束時間： 26/10/2025 23:59 香港時間</div>
           </div>
         </div>
+      </div>
+
+
+      <div className="h-screen"></div>
+
+      {/* 導演的話 */}
+      <div className="text-white w-full flex flex-col lg:flex-row bg-black">
+        <div className="w-full lg:min-w-1/2 flex flex-col items-starts justify-center gap-8 px-5 py-8">
+          <div className = "text-5xl text-pink-500 italic">"</div>
+          <div className="text-xl">五年來，「試玩毛」團隊成功創作出一個又一個我們引以為傲的本地遊戲綜藝節目奇蹟。臨別秋波，我們致力再創新高，製作試玩毛最終回——《墨魚遊戲2》，以「魷魚遊戲」為藍本，創作屬於香港人的兒時遊戲大逃殺！</div>
+          <div className="text-xl">今次製作斥資 <span className="text-pink-500 font-semibold">7位數字</span>，沒有接收任何廣告客戶。我們冒險摒棄一般募資方法，嘗試以拍賣形式幫補製作。承蒙 <span className="text-pink-500 font-semibold">100位藝人</span> 鼎力相助，願意捐出簽名戰衣支援。若然有幸填補製作成本，所有拍賣盈餘皆會捐給慈善機構 <span className="text-pink-500 font-semibold">「語橋社資」</span> 作慈善用途。</div>
+          <div className="text-xl">全靠大家的支持，我們才有機會將夢想實踐！多謝！</div>
+          <div className="self-end text-2xl font-semibold text-pink-main">— 試當真的話</div>
+        </div>
+        <div
+          className="w-full lg:min-w-1/2 h-[50vh] lg:h-auto bg-cover bg-center bg-no-repeat "
+          style={{ backgroundImage: `url(${Director})` }}
+        ></div>
       </div>
 
 

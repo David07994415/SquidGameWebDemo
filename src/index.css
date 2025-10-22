@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --color-pink-main:oklch(65.6% 0.241 354.308);
   --color-pink-neno: rgb(237, 27, 118);
   --color-blue-neno: rgb(36, 159, 156);
   --color-green-neno: rgb(197, 130, 181);
