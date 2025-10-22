@@ -6,6 +6,8 @@ import Rect from '../assets/rect.svg'
 import HeroBanner from '../assets/hero_banner.webp'
 import ChineseBanner from '../assets/Chinese_Logo S2.png'
 import Director from '../assets/directors.jpg'
+import Cloth1 from '../assets/Cloth1.png'
+import Cloth2 from '../assets/Cloth2.png'
 
 export default function Home() {
   const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
@@ -52,6 +54,60 @@ export default function Home() {
       }
     }
   }
+
+  const trackRef = useRef<HTMLDivElement>(null);
+  const clothSelectionRef = useRef<HTMLDivElement>(null);
+  let currentIndex = 0;
+  const images = [Cloth1, Cloth2];
+  const totalLength = images.length;
+  const goToArray = (direction: string) => {
+    if (!trackRef.current) {
+      return;
+    } else {
+      let nextCount = currentIndex;
+      if (direction === 'next') {
+        nextCount = nextCount + 1;
+        if (nextCount == totalLength) { currentIndex = 0 }
+        else { currentIndex = nextCount };
+      } else {
+        nextCount = nextCount - 1;
+        if (nextCount == -1) { currentIndex = 1 }
+        else { currentIndex = nextCount };
+      }
+      // 更新 transform
+      trackRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
+      changeClothDotStyle(currentIndex);
+    }
+  };
+
+  const gotoIndex = (index: number) => {
+    // if (!index) return; // 0 會出錯
+    if (trackRef.current) {
+      currentIndex = index;
+      // 更新 transform
+      trackRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+    changeClothDotStyle(index);
+  }
+
+  function changeClothDotStyle(index:number){
+    if (clothSelectionRef.current) {
+      const children = clothSelectionRef.current?.children;
+      if (!children) return;
+
+      // 移除所有選中樣式
+      Array.from(children).forEach((el) => {
+        el.classList.remove('bg-pink-500', 'scale-x-150');
+        el.classList.add('bg-stone-500');
+      });
+
+      // 套用選中樣式到點擊的那個
+      const selected = children[index];
+      selected.classList.add('bg-pink-500', 'scale-x-150');
+      selected.classList.remove('bg-stone-500');
+    }
+  }
+
 
   return (
     <div className='bg-stone-700 min-h-screen relative'>
@@ -155,13 +211,13 @@ export default function Home() {
       }
 
       {/* Btn 藝人 */}
-      <div className="fixed bottom-0 left-0 w-full z-40">
+      {/* <div className="fixed bottom-0 left-0 w-full z-40">
         <div className="max-w-md mx-auto px-4 py-3 shock-animation">
           <button className="rounded-md bg-pink-500 text-white text-lg p-3 w-full">
             立刻選擇你的藝人
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* Banner 文字區塊 */}
       <div className="absolute top-35 z-30 left-1/2 transform -translate-x-1/2">
@@ -203,28 +259,28 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="auctioncard">
               <div className=''>
-                <span className="material-symbols-outlined text-green-main" style={{fontSize:"64px"}}>Favorite</span>
+                <span className="material-symbols-outlined text-green-main" style={{ fontSize: "64px" }}>Favorite</span>
               </div>
               <h3 className='text-3xl  text-green-main'>即時支持</h3>
               <p className="text-white text-sm text-center">競標者不論中標與否，仍可選擇將出價金額捐出支持拍攝計劃</p>
             </div>
             <div className="auctioncard bg-black">
               <div className=''>
-                <span className="material-symbols-outlined text-pink-main" style={{fontSize:"64px"}}>shield</span>
+                <span className="material-symbols-outlined text-pink-main" style={{ fontSize: "64px" }}>shield</span>
               </div>
               <h3 className='text-3xl  text-pink-main'>次高價密封拍賣</h3>
               <p className="text-white text-sm text-center">競標者不知道他人出價<br />出價最高者中標後<br />只需支付所有出價中第二高價格</p>
             </div>
             <div className="auctioncard">
               <div className=''>
-                <span className="material-symbols-outlined text-green-main" style={{fontSize:"64px"}}>Mail</span>
+                <span className="material-symbols-outlined text-green-main" style={{ fontSize: "64px" }}>Mail</span>
               </div>
               <h3 className='text-3xl text-green-main'>拋離通知</h3>
-              <p className="text-white text-sm text-center">若您曾是最高出價者但被超越<br/>系統會透過 Email 通知您</p>
+              <p className="text-white text-sm text-center">若您曾是最高出價者但被超越<br />系統會透過 Email 通知您</p>
             </div>
             <div className="auctioncard">
               <div className=''>
-                <span className="material-symbols-outlined text-pink-main" style={{fontSize:"64px"}}>Gavel</span>
+                <span className="material-symbols-outlined text-pink-main" style={{ fontSize: "64px" }}>Gavel</span>
               </div>
               <h3 className='text-3xl  text-pink-main'>拍賣規則</h3>
               <p className="text-white text-sm text-center">詳細了解拍賣流程與相關規定</p>
@@ -232,23 +288,62 @@ export default function Home() {
             </div>
             <div className="auctioncard">
               <div className=''>
-                <span className="material-symbols-outlined text-green-main" style={{fontSize:"64px"}}>Credit_Card</span>
+                <span className="material-symbols-outlined text-green-main" style={{ fontSize: "64px" }}>Credit_Card</span>
               </div>
               <h3 className='text-3xl  text-green-main'>付款方式</h3>
               <p className="text-white text-sm text-center">支援多種安全的付款選項<br />確保交易順利進行</p>
-               <a className="text-green-main text-sm text-center">了解更多</a>
+              <a className="text-green-main text-sm text-center">了解更多</a>
             </div>
             <div className="auctioncard">
               <div className=''>
-                <span className="material-symbols-outlined text-pink-main" style={{fontSize:"64px"}}>Local_Shipping</span>
+                <span className="material-symbols-outlined text-pink-main" style={{ fontSize: "64px" }}>Local_Shipping</span>
               </div>
               <h3 className='text-3xl  text-pink-main'>運送資訊</h3>
               <p className="text-white text-sm text-center">了解商品包裝、<br />運送時間與配送相關資訊</p>
-               <a className="text-pink-main text-sm text-center">了解更多</a>
+              <a className="text-pink-main text-sm text-center">了解更多</a>
             </div>
           </div>
         </div>
 
+      </div>
+
+      {/* 衣服展示 */}
+      <div className='relative w-full flex justify-center items-center bg-stone-800'>
+        <div className="w-full lg:min-w-1/2">
+          <div className='flex flex-col justify-center items-center gap-3 p-3'>
+            <div className="relative">
+              <div className='bg-black overflow-hidden '>
+                <div ref={trackRef} className="flex transition-transform duration-500 ease-in-out">
+                  <img className='max-w-full' src={Cloth1} alt="Cloth1" />
+                  <img className='max-w-full' src={Cloth2} alt="Cloth2" />
+                </div>
+              </div>
+              <div className='absolute z-40 left-[15%] top-[50%] -translate-y-1/2 text-white rounded-full border-white border-2 bg-stone-700 p-2 flex justify-center items-center hover:bg-stone-700/60' onClick={() => goToArray('previous')}>
+                <span className="material-symbols-outlined text-white-main" style={{ fontSize: "32px" }}>Chevron_Left</span>
+              </div>
+              <div className='absolute z-40 right-[15%] top-[50%] -translate-y-1/2 text-white rounded-full border-white border-2 bg-stone-700 p-2 flex justify-center items-center hover:bg-stone-700/60' onClick={() => { goToArray('next') }}>
+                <span className="material-symbols-outlined text-white-main" style={{ fontSize: "32px" }}>Chevron_Right</span>
+              </div>
+              <div ref={clothSelectionRef} className="absolute z-40 left-[50%] top-[90%] -translate-x-1/2 flex justify-center items-center gap-5">
+                {
+                  images.map((_, index) => {
+                    return <div key={index} className='w-[16px] h-[16px] rounded-full bg-stone-500 transition-transform transition-colors duration-500 ease-in-out' onClick={() => { gotoIndex(index) }}></div>
+                  })
+                }
+                {/* 
+                  <div className='w-[16px] h-[16px] rounded-full bg-stone-500 transition-transform duration-500 ease-in-out' onClick={()=>{}}></div>
+                  <div className='w-[16px] h-[16px] rounded-full bg-stone-500 transition-transform duration-500 ease-in-out'></div> */}
+              </div>
+            </div>
+            <div className="text-sm text-white">*參賽者戰衣示意圖</div>
+          </div>
+        </div>
+        <div className="hidden lg:block lg:min-w-1/2 text-white">
+          <div className='flex flex-col justify-center items-center p-3' >
+            <h3 className='text-pink-main text-3xl'>獨一無二的藝人親簽戰衣</h3>
+            <p className='text-white'>每位藝人都已在外套上簽名或留言，連帶淘汰時所染血跡(勝出者已加上電腦特效以防劇透)，清楚記錄出局時的喜怒哀樂！</p>
+          </div>
+        </div>
       </div>
 
     </div>
