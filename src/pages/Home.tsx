@@ -54,7 +54,17 @@ export default function Home() {
   }
 
   return (
-    <div className='bg-black h-[200vh] relative'>
+    <div className='bg-stone-700 min-h-screen relative'>
+
+      {/* ICON 背景 區塊 */}
+      <div className="iconPosition span-animation top-[33%] left-[20%]"><img className="w-full span-animation" src={Circle} alt="CircleIcon" /></div>
+      <div className="iconPosition span-animation top-[50%] left-[30%]"><img className="w-full" src={Square} alt="SquareIcon" /></div>
+      <div className="iconPosition span-animation top-[75%] left-[25%]"><img className="w-full" src={Rect} alt="RectIcon" /></div>
+      <div className="iconPosition span-animation top-[36%] right-[18%]"><img className="w-full span-animation" src={Rect} alt="RectIcon" /></div>
+      <div className="iconPosition span-animation top-[53%] right-[35%]"><img className="w-full" src={Circle} alt="CircleIcon" /></div>
+      <div className="iconPosition span-animation top-[80%] right-[28%]"><img className="w-full" src={Square} alt="SquareIcon" /></div>
+
+
       {/* 背景圖片 */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat h-screen"
@@ -124,19 +134,19 @@ export default function Home() {
                 <div className="text-bold text-xl">參與競標</div>
                 <div className="text-bold text-xl">常見問題</div>
                 <div className="flex flex-col gap-3 text-white pt-3 border-t-2 border-gray-800">
-                    <div className='text-bold text-xl text-pink-main'>拍賣資訊</div>
-                    <div className="flex flex-col gap-3 p-5 pt-0 text-white ">
-                      <div className="text-bold text-xl">拍賣規定</div>
-                      <div className="text-bold text-xl">付款方式</div>
-                      <div className="text-bold text-xl">運送方式</div>
-                    </div>
+                  <div className='text-bold text-xl text-pink-main'>拍賣資訊</div>
+                  <div className="flex flex-col gap-3 p-5 pt-0 text-white ">
+                    <div className="text-bold text-xl">拍賣規定</div>
+                    <div className="text-bold text-xl">付款方式</div>
+                    <div className="text-bold text-xl">運送方式</div>
+                  </div>
                 </div>
-                 <div className="flex flex-col gap-3 text-white pt-3 border-t-2 border-gray-800">
-                    <div className='text-bold text-xl text-pink-main'>政策條款</div>
-                    <div className="flex flex-col gap-3 p-5 pt-0 text-white ">
-                      <div className="text-bold text-xl">隱私政策</div>
-                      <div className="text-bold text-xl">退款政策</div>
-                    </div>
+                <div className="flex flex-col gap-3 text-white pt-3 border-t-2 border-gray-800">
+                  <div className='text-bold text-xl text-pink-main'>政策條款</div>
+                  <div className="flex flex-col gap-3 p-5 pt-0 text-white ">
+                    <div className="text-bold text-xl">隱私政策</div>
+                    <div className="text-bold text-xl">退款政策</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -172,7 +182,7 @@ export default function Home() {
       <div className="h-screen"></div>
 
       {/* 導演的話 */}
-      <div className="text-white w-full flex flex-col lg:flex-row bg-black">
+      <div className="relative z-30 text-white w-full flex flex-col lg:flex-row bg-black">
         <div className="w-full lg:min-w-1/2 flex flex-col items-starts justify-center gap-8 px-5 py-8">
           <div className="text-5xl text-pink-500 italic">"</div>
           <div className="text-xl">五年來，「試玩毛」團隊成功創作出一個又一個我們引以為傲的本地遊戲綜藝節目奇蹟。臨別秋波，我們致力再創新高，製作試玩毛最終回——《墨魚遊戲2》，以「魷魚遊戲」為藍本，創作屬於香港人的兒時遊戲大逃殺！</div>
@@ -186,8 +196,60 @@ export default function Home() {
         ></div>
       </div>
 
+      {/* 拍賣規則 */}
+      <div className="relative z-30 w-full my-12">
+        <div className='flex flex-col justify-center items-center gap-10 max-w-5xl mx-auto'>
+          <h2 className="text-4xl text-center text-pink-main neon-glow font-[1200]" >案標拍賣規則</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="auctioncard">
+              <div className=''>
+                <span className="material-symbols-outlined text-green-main" style={{fontSize:"64px"}}>Favorite</span>
+              </div>
+              <h3 className='text-3xl  text-green-main'>即時支持</h3>
+              <p className="text-white text-sm text-center">競標者不論中標與否，仍可選擇將出價金額捐出支持拍攝計劃</p>
+            </div>
+            <div className="auctioncard bg-black">
+              <div className=''>
+                <span className="material-symbols-outlined text-pink-main" style={{fontSize:"64px"}}>shield</span>
+              </div>
+              <h3 className='text-3xl  text-pink-main'>次高價密封拍賣</h3>
+              <p className="text-white text-sm text-center">競標者不知道他人出價<br />出價最高者中標後<br />只需支付所有出價中第二高價格</p>
+            </div>
+            <div className="auctioncard">
+              <div className=''>
+                <span className="material-symbols-outlined text-green-main" style={{fontSize:"64px"}}>Mail</span>
+              </div>
+              <h3 className='text-3xl text-green-main'>拋離通知</h3>
+              <p className="text-white text-sm text-center">若您曾是最高出價者但被超越<br/>系統會透過 Email 通知您</p>
+            </div>
+            <div className="auctioncard">
+              <div className=''>
+                <span className="material-symbols-outlined text-pink-main" style={{fontSize:"64px"}}>Gavel</span>
+              </div>
+              <h3 className='text-3xl  text-pink-main'>拍賣規則</h3>
+              <p className="text-white text-sm text-center">詳細了解拍賣流程與相關規定</p>
+              <a className="text-pink-main text-sm text-center">了解更多</a>
+            </div>
+            <div className="auctioncard">
+              <div className=''>
+                <span className="material-symbols-outlined text-green-main" style={{fontSize:"64px"}}>Credit_Card</span>
+              </div>
+              <h3 className='text-3xl  text-green-main'>付款方式</h3>
+              <p className="text-white text-sm text-center">支援多種安全的付款選項<br />確保交易順利進行</p>
+               <a className="text-green-main text-sm text-center">了解更多</a>
+            </div>
+            <div className="auctioncard">
+              <div className=''>
+                <span className="material-symbols-outlined text-pink-main" style={{fontSize:"64px"}}>Local_Shipping</span>
+              </div>
+              <h3 className='text-3xl  text-pink-main'>運送資訊</h3>
+              <p className="text-white text-sm text-center">了解商品包裝、<br />運送時間與配送相關資訊</p>
+               <a className="text-pink-main text-sm text-center">了解更多</a>
+            </div>
+          </div>
+        </div>
 
-
+      </div>
 
     </div>
   )

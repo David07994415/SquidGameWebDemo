@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-pink-main:oklch(65.6% 0.241 354.308);
+  --color-pink-main: oklch(65.6% 0.241 354.308);
+  --color-green-main: oklch(72.3% 0.219 149.579);
   --color-pink-neno: rgb(237, 27, 118);
   --color-blue-neno: rgb(36, 159, 156);
   --color-green-neno: rgb(197, 130, 181);
@@ -39,6 +40,14 @@
   .hover\:neon-glow:hover {
     text-shadow: 0 0 10px var(--color-pink-neno), 0 0 20px var(--color-pink-neno), 0 0 30px var(--color-pink-neno)
   }
+
+  .iconPosition {
+    @apply fixed z-0 max-w-[32px];
+  }
+
+  .auctioncard{
+    @apply max-w-[300px] flex flex-col justify-center items-center gap-3 p-5
+  }
 }
 
 .shock-animation {
@@ -66,5 +75,42 @@
 
   100% {
     transform: scale(1)
+  }
+
+}
+
+.span-animation {
+  animation: rotate90 3s ease-in-out infinite alternate forwards;
+}
+
+@keyframes rotate90 {
+  0% {
+    transform: rotate(0deg) scale(1.1);
+    filter: brightness(150%);
+    filter: drop-shadow(var(--color-pink-neno) 0px 0px 5px);
+  }
+
+  25% {
+    transform: rotate(45deg) scale(1);
+    filter: brightness(50%);
+    filter: drop-shadow(var(--color-pink-neno) 0px 0px 5px);
+  }
+
+  50% {
+    transform: rotate(90deg) scale(1.1);
+    filter: brightness(150%);
+    filter: drop-shadow(var(--color-pink-neno) 0px 0px 5px);
+  }
+
+  75% {
+    transform: rotate(135deg) scale(1);
+    filter: brightness(50%);
+    filter: drop-shadow(var(--color-pink-neno) 0px 0px 5px);
+  }
+
+  100% {
+    transform: rotate(180deg) scale(1.1);
+    filter: brightness(150%);
+    filter: drop-shadow(var(--color-pink-neno) 0px 0px 5px);
   }
 }
