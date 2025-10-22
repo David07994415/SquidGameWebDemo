@@ -10,7 +10,7 @@ import Director from '../assets/directors.jpg'
 export default function Home() {
   const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
   const countdownRef = useRef<HTMLDivElement>(null);
-  const endTime = new Date('2025-10-26T23:59:00+08:00').getTime();
+  const endTime = new Date('2025-11-26T23:59:00+08:00').getTime();
   useEffect(() => {
     const timer = setInterval(() => {
       const nowTime = Date.now();
@@ -94,7 +94,13 @@ export default function Home() {
             <button className="rounded-md bg-pink-500 p-3 text-white">登入 / 註冊</button>
           </div>
           <div className="lg:hidden text-white">
-            <button onClick={() => { setToggleHamburger(!toggleHamburger) }}>漢堡</button>
+            <button onClick={() => { setToggleHamburger(!toggleHamburger) }}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-pink-main" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
         </nav>
       </div>
@@ -102,9 +108,38 @@ export default function Home() {
       {/* 導覽列-手機 */}
       {
         toggleHamburger && (
-          <div className='w-full bg-black absolute inset-0 z-50'>
-            <button className="text-pink-500" onClick={() => { setToggleHamburger(!toggleHamburger) }} >X</button>
-            漢堡 選單
+          <div className='w-full bg-black fixed inset-0 z-[100]'>
+            <div className='flex flex-col h-full'>
+              <div className="flex flex-col gap-3 py-4 items-center">
+                <div className="self-end">
+                  <button className="text-pink-main px-6 text-lg" onClick={() => { setToggleHamburger(!toggleHamburger) }} >X</button>
+                </div>
+                <div>
+                  <button className="rounded-md bg-pink-main p-3 text-white w-[90vw]">登入 / 註冊</button>
+                </div>
+              </div>
+
+              <div className="flex flex-1 flex-col gap-4 p-5 text-white border-t-2 border-gray-800 overflow-y-scroll h-[80vh]">
+                <div className="text-bold text-xl">首頁</div>
+                <div className="text-bold text-xl">參與競標</div>
+                <div className="text-bold text-xl">常見問題</div>
+                <div className="flex flex-col gap-3 text-white pt-3 border-t-2 border-gray-800">
+                    <div className='text-bold text-xl text-pink-main'>拍賣資訊</div>
+                    <div className="flex flex-col gap-3 p-5 pt-0 text-white ">
+                      <div className="text-bold text-xl">拍賣規定</div>
+                      <div className="text-bold text-xl">付款方式</div>
+                      <div className="text-bold text-xl">運送方式</div>
+                    </div>
+                </div>
+                 <div className="flex flex-col gap-3 text-white pt-3 border-t-2 border-gray-800">
+                    <div className='text-bold text-xl text-pink-main'>政策條款</div>
+                    <div className="flex flex-col gap-3 p-5 pt-0 text-white ">
+                      <div className="text-bold text-xl">隱私政策</div>
+                      <div className="text-bold text-xl">退款政策</div>
+                    </div>
+                </div>
+              </div>
+            </div>
           </div>
         )
       }
@@ -133,13 +168,13 @@ export default function Home() {
         </div>
       </div>
 
-
+      {/* gap */}
       <div className="h-screen"></div>
 
       {/* 導演的話 */}
       <div className="text-white w-full flex flex-col lg:flex-row bg-black">
         <div className="w-full lg:min-w-1/2 flex flex-col items-starts justify-center gap-8 px-5 py-8">
-          <div className = "text-5xl text-pink-500 italic">"</div>
+          <div className="text-5xl text-pink-500 italic">"</div>
           <div className="text-xl">五年來，「試玩毛」團隊成功創作出一個又一個我們引以為傲的本地遊戲綜藝節目奇蹟。臨別秋波，我們致力再創新高，製作試玩毛最終回——《墨魚遊戲2》，以「魷魚遊戲」為藍本，創作屬於香港人的兒時遊戲大逃殺！</div>
           <div className="text-xl">今次製作斥資 <span className="text-pink-500 font-semibold">7位數字</span>，沒有接收任何廣告客戶。我們冒險摒棄一般募資方法，嘗試以拍賣形式幫補製作。承蒙 <span className="text-pink-500 font-semibold">100位藝人</span> 鼎力相助，願意捐出簽名戰衣支援。若然有幸填補製作成本，所有拍賣盈餘皆會捐給慈善機構 <span className="text-pink-500 font-semibold">「語橋社資」</span> 作慈善用途。</div>
           <div className="text-xl">全靠大家的支持，我們才有機會將夢想實踐！多謝！</div>
