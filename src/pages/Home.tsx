@@ -9,7 +9,10 @@ import Director from '../assets/directors.jpg'
 import Cloth1 from '../assets/Cloth1.png'
 import Cloth2 from '../assets/Cloth2.png'
 import QAPart from '../components/QAPart'
+import Star from '../assets/001_main.webp'
+
 import { createClient } from '@supabase/supabase-js'
+import StarCard from '../components/StarCard'
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -23,7 +26,7 @@ export default function Home() {
   }
 
   const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
-  const [questions,setQuestions] = useState<questionType[]>([]);
+  const [questions, setQuestions] = useState<questionType[]>([]);
 
   const countdownRef = useRef<HTMLDivElement>(null);
   const endTime = new Date('2025-11-26T23:59:00+08:00').getTime();
@@ -376,11 +379,25 @@ export default function Home() {
       {/* 藝人Card */}
       <div className="relative z-40 w-full my-12">
         <div className='flex flex-col justify-center items-center gap-10 max-w-5xl mx-auto'>
-          <h2 className="text-4xl text-center text-pink-main neon-glow font-[1200]" >常見問題
+          <h2 className="text-4xl text-center text-pink-main neon-glow font-[1200]" >選擇你的藝人
           </h2>
+          <input className='w-full focus:outline-none focus:ring-0 focus:border-red-500' type="text" placeholder='123' />
+          <p className='text-white'>123</p>
+          <div className='grid grid-cols-5 gap-3'>
+            <StarCard id={1}></StarCard>
+            {/* <a>
+              <img className='w-full rounded-xl transform hover:scale-105 transition duration-300 ease-in-out hover:border-pink-main hover:border-2' src={Star} alt="Star" />
+            </a>
+
+            <img className='w-full' src={Star} alt="Star" />
+            <img className='w-full' src={Star} alt="Star" />
+            <img className='w-full' src={Star} alt="Star" />
+            <img className='w-full' src={Star} alt="Star" />
+            <img className='w-full' src={Star} alt="Star" /> */}
+          </div>
         </div>
       </div>
-      
+
       {/* 常見問題 */}
       <div className="relative z-40 w-full my-12">
         <div className='flex flex-col justify-center items-center gap-10 max-w-5xl mx-auto'>
@@ -388,7 +405,7 @@ export default function Home() {
           </h2>
           <div className='flex flex-col justify-center items-center gap-2 max-w-4xl w-full p-5'>
             {
-              questions.map((q)=>{
+              questions.map((q) => {
                 return (
                   <QAPart key={q.id} question={q.question} answer={q.answer}></QAPart>
                 )

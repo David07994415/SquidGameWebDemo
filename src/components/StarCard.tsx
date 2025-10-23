@@ -1,0 +1,20 @@
+import Star from '../assets/001_main.webp'
+import { Link } from 'react-router'
+
+type StarCardProps = {
+    id: number,
+    // name:string,
+}
+
+export default function StarCard(props: StarCardProps) {
+    return (
+        <>
+            <Link to={`star/${props.id}`} >
+                <div className='relative'>
+                    <img className='w-full rounded-xl transform hover:scale-105 transition duration-300 ease-in-out hover:border-pink-main hover:border-2' src={Star} alt="Star" />
+                    <p className='absolute z-40 top-[80%] left-[50%] -translate-x-1/2 text-green-main text-3xl'>{props.id}</p>
+                </div>
+            </Link>
+        </>
+    )
+}
