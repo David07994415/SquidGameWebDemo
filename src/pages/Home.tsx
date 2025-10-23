@@ -8,9 +8,23 @@ import ChineseBanner from '../assets/Chinese_Logo S2.png'
 import Director from '../assets/directors.jpg'
 import Cloth1 from '../assets/Cloth1.png'
 import Cloth2 from '../assets/Cloth2.png'
+import QAPart from '../components/QAPart'
+import { createClient } from '@supabase/supabase-js'
+
+const apiUrl = import.meta.env.VITE_API_URL;
+const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function Home() {
+
+  type questionType = {
+    id: number,
+    question: string,
+    answer: string,
+  }
+
   const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
+  const [questions,setQuestions] = useState<questionType[]>([]);
+
   const countdownRef = useRef<HTMLDivElement>(null);
   const endTime = new Date('2025-11-26T23:59:00+08:00').getTime();
   useEffect(() => {
@@ -33,6 +47,19 @@ export default function Home() {
       }
     }, 1000)
     return () => clearInterval(timer);
+  }, [])
+
+  const fetchData = async () => {
+    const supabase_client = createClient(apiUrl, apiKey);
+    const { data, error } = await supabase_client.from('question').select("*");
+    if (error) {
+      console.error(error.message);
+      return;
+    }
+    setQuestions(data)
+  }
+  useEffect(() => {
+    // fetchData();
   }, [])
 
   const auctionLinkRef = useRef<HTMLDivElement>(null);
@@ -90,7 +117,7 @@ export default function Home() {
     changeClothDotStyle(index);
   }
 
-  function changeClothDotStyle(index:number){
+  function changeClothDotStyle(index: number) {
     if (clothSelectionRef.current) {
       const children = clothSelectionRef.current?.children;
       if (!children) return;
@@ -346,6 +373,33 @@ export default function Home() {
         </div>
       </div>
 
-    </div>
+      {/* 藝人Card */}
+      <div className="relative z-40 w-full my-12">
+        <div className='flex flex-col justify-center items-center gap-10 max-w-5xl mx-auto'>
+          <h2 className="text-4xl text-center text-pink-main neon-glow font-[1200]" >常見問題
+          </h2>
+        </div>
+      </div>
+      
+      {/* 常見問題 */}
+      <div className="relative z-40 w-full my-12">
+        <div className='flex flex-col justify-center items-center gap-10 max-w-5xl mx-auto'>
+          <h2 className="text-4xl text-center text-pink-main neon-glow font-[1200]" >常見問題
+          </h2>
+          <div className='flex flex-col justify-center items-center gap-2 max-w-4xl w-full p-5'>
+            {
+              questions.map((q)=>{
+                return (
+                  <QAPart key={q.id} question={q.question} answer={q.answer}></QAPart>
+                )
+              })
+            }
+          </div>
+        </div>
+      </div>
+
+
+
+    </div >
   )
 }

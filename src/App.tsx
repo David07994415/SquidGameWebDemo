@@ -1,11 +1,16 @@
+import {Routes, Route } from 'react-router'
 import './App.css'
 import MainLayout from './layouts/MainLayout'
 import Home from './pages/Home'
+import Unknown from './pages/Unknown'
 
 function App() {
   return (
     <>
-      <Home />
+      <Routes>
+        <Route path='/' element={<Home />}></Route>
+        <Route path='*' element={<Unknown />}></Route>
+      </Routes>
       {/* <MainLayout>
         <Home />
       </MainLayout> */}
