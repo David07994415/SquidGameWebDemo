@@ -1,4 +1,4 @@
-import {Routes, Route } from 'react-router'
+import { Routes, Route } from 'react-router'
 import './App.css'
 import MainLayout from './layouts/MainLayout'
 import Home from './pages/Home'
@@ -9,9 +9,11 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />}></Route>
-        <Route path='star'>
-          <Route path=":starId" element={<Stars/>} />
+        <Route element={<MainLayout/>}>
+          <Route path='/' element={<Home />}></Route>
+          <Route path='star'>
+            <Route path=":starId" element={<Stars />} />
+          </Route>
         </Route>
         <Route path='*' element={<Unknown />}></Route>
       </Routes>
