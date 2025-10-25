@@ -91,9 +91,9 @@ export default function Home() {
 
 
       {/* 背景圖片 */}
-      <div
+      <div id="mainpicpart"
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat h-screen"
-        style={{ backgroundImage: `url(${HeroBanner})` }}
+        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url(${HeroBanner})` }}
       ></div>
 
 
@@ -141,7 +141,7 @@ export default function Home() {
       </div>
 
       {/* 拍賣規則 */}
-      <div className="relative z-30 w-full my-12">
+      <div id="aucationrulepart" className="relative z-30 w-full my-12">
         <div className='flex flex-col justify-center items-center gap-10 max-w-5xl mx-auto'>
           <h2 className="text-4xl text-center text-pink-main neon-glow font-[1200]" >案標拍賣規則</h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -250,7 +250,7 @@ export default function Home() {
       </div>
 
       {/* 常見問題 */}
-      <div className="relative z-40 w-full my-12">
+      <div id="qapart" className="relative z-40 w-full my-12">
         <div className='flex flex-col justify-center items-center gap-10 max-w-5xl mx-auto'>
           <h2 className="text-4xl text-center text-pink-main neon-glow font-[1200]" >常見問題
           </h2>

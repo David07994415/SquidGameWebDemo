@@ -1,5 +1,5 @@
-import { useRef,useState } from 'react'
-import { Outlet } from "react-router"
+import { useRef, useState } from 'react'
+import { Link, NavLink, Outlet } from "react-router"
 
 import LogoWhite from '../assets/Logo_white.png'
 import Circle from '../assets/circle.svg'
@@ -11,25 +11,25 @@ export default function MainLayout() {
 
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
 
-      const auctionLinkRef = useRef<HTMLDivElement>(null);
-      const policyLinkRef = useRef<HTMLDivElement>(null);
-      const auctionLinkBtnHandler = () => {
+    const auctionLinkRef = useRef<HTMLDivElement>(null);
+    const policyLinkRef = useRef<HTMLDivElement>(null);
+    const auctionLinkBtnHandler = () => {
         if (auctionLinkRef.current && policyLinkRef.current) {
-          auctionLinkRef.current.classList.toggle("hidden")
-          if (!policyLinkRef.current.classList.contains("hidden")) {
-            policyLinkRef.current.classList.toggle("hidden")
-          }
-        }
-      }
-    
-      const policyLinkBtnHandler = () => {
-        if (policyLinkRef.current && auctionLinkRef.current) {
-          policyLinkRef.current.classList.toggle("hidden")
-          if (!auctionLinkRef.current.classList.contains("hidden")) {
             auctionLinkRef.current.classList.toggle("hidden")
-          }
+            if (!policyLinkRef.current.classList.contains("hidden")) {
+                policyLinkRef.current.classList.toggle("hidden")
+            }
         }
-      }
+    }
+
+    const policyLinkBtnHandler = () => {
+        if (policyLinkRef.current && auctionLinkRef.current) {
+            policyLinkRef.current.classList.toggle("hidden")
+            if (!auctionLinkRef.current.classList.contains("hidden")) {
+                auctionLinkRef.current.classList.toggle("hidden")
+            }
+        }
+    }
 
 
 
@@ -56,23 +56,38 @@ export default function MainLayout() {
                         <div className="min-w-[32px] w-[32px]"><img className='w-full filter_green' src={Rect} alt="Rect" /></div>
                     </div>
                     {!toggleHamburger && (
-                        <ul className="hidden lg:flex justify-center items-center gap-4 text-white text-xl font-bold">
-                            <li><button className='hover:neon-glow'>首頁</button></li>
-                            <li><button className='hover:neon-glow'>參與競標</button></li>
-                            <li><button className='hover:neon-glow relative' onClick={() => { auctionLinkBtnHandler() }} >拍賣資訊 V</button>
-                                <div ref={auctionLinkRef} className="hidden absolute buttom-0 flex flex-col justify-center items-start gap-2 rounded-lg border-pink-500 border-2 p-3 bg-black text-xl z-[45] w-[150px]">
-                                    <div>拍賣規則</div>
-                                    <div>付款方式</div>
-                                    <div>運送資訊</div>
+                        <ul className="hidden lg:flex justify-center items-center gap-4 text-white text-md font-bold">
+                            <li><Link className='hover:neon-glow' to="/#mainpicpart">首頁</Link></li>
+                            <li><Link className='hover:neon-glow' to="/#aucationrulepart">參與競標</Link></li>
+                            <li>
+                                <button className='hover:neon-glow relative' onClick={() => { auctionLinkBtnHandler() }} >
+                                    <div className="flex justify-center items-center">
+                                        <div>拍賣資訊</div>
+                                        <div className="material-symbols-outlined">
+                                            stat_minus_1
+                                        </div>
+                                    </div>
+                                </button>
+                                <div ref={auctionLinkRef} className="hidden absolute buttom-0 flex flex-col justify-center items-start gap-2 rounded-md border-pink-500 border-2 p-1 bg-black text-md z-[45] w-[150px]">
+                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">拍賣規則</div>
+                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">付款方式</div>
+                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">運送資訊</div>
                                 </div>
                             </li>
-                            <li><button className='hover:neon-glow relative' onClick={() => { policyLinkBtnHandler() }}>政策條款 V</button>
-                                <div ref={policyLinkRef} className="hidden absolute buttom-0 flex flex-col justify-center items-start gap-2 rounded-lg border-pink-500 border-2 p-3 bg-black text-xl z-[45] w-[150px]">
-                                    <div>隱私政策</div>
-                                    <div>退款政策</div>
+                            <li><button className='hover:neon-glow relative' onClick={() => { policyLinkBtnHandler() }}>
+                                <div className="flex justify-center items-center">
+                                    <div>政策條款</div>
+                                    <div className="material-symbols-outlined">
+                                        stat_minus_1
+                                    </div>
+                                </div>
+                            </button>
+                                <div ref={policyLinkRef} className="hidden absolute buttom-0 flex flex-col justify-center items-start gap-2 rounded-lg border-pink-500 border-2 p-1 bg-black text-md z-[45] w-[150px]">
+                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">隱私政策</div>
+                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">退款政策</div>
                                 </div>
                             </li>
-                            <li><button className='hover:neon-glow'>常見問題</button></li>
+                            <li><a className='hover:neon-glow' href='#qapart'>常見問題</a></li>
                         </ul>
                     )}
                     <div className="hidden lg:block">
@@ -105,9 +120,9 @@ export default function MainLayout() {
                             </div>
 
                             <div className="flex flex-1 flex-col gap-4 p-5 text-white border-t-2 border-gray-800 overflow-y-scroll h-[80vh]">
-                                <div className="text-bold text-xl">首頁</div>
-                                <div className="text-bold text-xl">參與競標</div>
-                                <div className="text-bold text-xl">常見問題</div>
+                                <a className="text-bold text-xl" href="#mainpicpart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>首頁</a>
+                                <a className="text-bold text-xl" href="#aucationrulepart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>參與競標</a>
+                                <a className="text-bold text-xl" href="#qapart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>常見問題</a>
                                 <div className="flex flex-col gap-3 text-white pt-3 border-t-2 border-gray-800">
                                     <div className='text-bold text-xl text-pink-main'>拍賣資訊</div>
                                     <div className="flex flex-col gap-3 p-5 pt-0 text-white ">
