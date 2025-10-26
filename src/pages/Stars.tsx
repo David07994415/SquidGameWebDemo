@@ -5,6 +5,7 @@ import cloth_front from "../assets/001_F.webp"
 import cloth_back from "../assets/001_B.webp"
 import PicSelection from "../components/PicSelection";
 import { useEffect, useState, useRef } from "react";
+import AuctionRulePart from "../components/AuctionRulePart";
 
 export default function Stars() {
     let { starId } = useParams();
@@ -133,7 +134,7 @@ export default function Stars() {
                         <div className="flex flex-col jusify-center items-center w-full gap-3 p-3 pt-4">
                             <h4 className="self-start font-extrabold text-xl">拍賣條款與細則</h4>
                             <div ref={scrollRef} className="w-full max-h-[200px] bg-black p-2 overflow-y-auto">
-                                <p className="w-full  ">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem velit, esse ut id quae maiores explicabo optio quam quo officiis sit iure placeat, dolor totam doloribus! Necessitatibus animi qui consectetur?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem velit, esse ut id quae maiores explicabo optio quam quo officiis sit iure placeat, dolor totam doloribus! Necessitatibus animi qui Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem velit, esse ut id quae maiores explicabo optio quam quo officiis sit iure placeat, dolor totam doloribus! Necessitatibus animi qui consectetur?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem velit, esse ut id quae maiores explicabo optio quam quo officiis Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem velit, esse ut id quae maiores explicabo optio quam quo officiis sit iure placeat, dolor totam doloribus! Necessitatibus animi qui consectetur?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem velit, esse ut id quae maiores explicabo optio quam quo officiis consectetur?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem velit, esse ut id quae maiores explicabo optio quam quo officiis sit iure placeat, dolor totam doloribus! Necessitatibus animi qui consectetur?Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem velit, esse ut id quae maiores explicabo optio quam quo officiis sit iure placeat, dolor totam doloribus! Necessitatibus animi qui consectetur?</p>
+                                <AuctionRulePart></AuctionRulePart>
                             </div>
                             {
                                 isAtBottom ? (
@@ -149,9 +150,9 @@ export default function Stars() {
                             }
 
                             <div className="w-full flex justify-center items-center gap-3">
-                                <button className="w-full p-3 text-center bg-gray-500 rounded-md hover:bg-pink-500/50" onClick={()=>{handleShowContract(false)}}> 取消
+                                <button className="w-full p-3 text-center bg-gray-500 rounded-md hover:bg-pink-500/50" onClick={() => { handleShowContract(false) }}> 取消
                                 </button>
-                                <button className={`w-full p-3 text-center bg-gray-500/80 rounded-md ${!isAtBottom?'bg-gray-800':'bg-gray-500 hover:bg-pink-500/50'}`} disabled={!isAtBottom}> 同意條款
+                                <button className={`w-full p-3 text-center bg-gray-500/80 rounded-md ${!isAtBottom ? 'bg-gray-800' : 'bg-gray-500 hover:bg-pink-500/50'}`} disabled={!isAtBottom}> 同意條款
                                 </button>
                             </div>
 
@@ -159,6 +160,14 @@ export default function Stars() {
                     </div>
                 )
             }
+            <div className="fixed bottom-0 left-0 z-40 w-full bg-black border-t-2 p-2 border-pink-main">
+                <div className="flex justify-center items-center text-white gap-3">
+                    <div className="w-full text-center text-3xl font-extrabold">總出價：$ {endPrice}</div>
+                    <div className="w-full px-5">
+                         <button className="rounded-md bg-pink-main p-3 text-white w-full hover:scale-105 transition-all duration-300 ease-in-out ">登入 / 註冊</button>
+                    </div>
+                </div>
+            </div>
 
 
 

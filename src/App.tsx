@@ -4,16 +4,18 @@ import MainLayout from './layouts/MainLayout'
 import Home from './pages/Home'
 import Unknown from './pages/Unknown'
 import Stars from './pages/Stars'
+import AuctionRule from './pages/AuctionRule'
 
 function App() {
   return (
     <>
       <Routes>
-        <Route element={<MainLayout/>}>
+        <Route element={<MainLayout />}>
           <Route path='/' element={<Home />}></Route>
           <Route path='star'>
             <Route path=":starId" element={<Stars />} />
           </Route>
+          <Route path='auctionrule' element={<AuctionRule />}></Route>
         </Route>
         <Route path='*' element={<Unknown />}></Route>
       </Routes>
