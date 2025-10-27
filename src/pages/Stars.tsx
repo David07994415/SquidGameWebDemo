@@ -1,15 +1,45 @@
 import { useParams } from "react-router";
-
 import demoMain from "../assets/001_main.webp"
 import cloth_front from "../assets/001_F.webp"
 import cloth_back from "../assets/001_B.webp"
 import PicSelection from "../components/PicSelection";
 import { useEffect, useState, useRef } from "react";
 import AuctionRulePart from "../components/AuctionRulePart";
+import { supabase } from "../utils/SupabaseClient";
+
+const apiUrl = import.meta.env.VITE_API_URL;
+const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function Stars() {
     let { starId } = useParams();
-    let starName = "David";
+    //let images = [demoMain, cloth_front, cloth_back];
+
+    type starType = {
+        id: number,
+        name: string,
+        code: string,
+        imgUrl: string,
+    }
+
+    const [star, setStar] = useState<starType | null>(null);
+    const [images,setImages] = useState<string[]>([]);
+
+    const fetchStarData = async () => {
+        const { data, error } = await supabase
+            .from('star')
+            .select('*')
+            .eq('id', starId?.toString()).single();
+        if (error) {
+            console.error(error.message);
+            return;
+        }
+        setStar(data);
+        setImages([data.imgUrl, cloth_front, cloth_back])
+    }
+
+    useEffect(() => {
+        fetchStarData();
+    }, [])
 
     const startPrice = 400;
     const [price, setPrice] = useState(100);
@@ -35,7 +65,7 @@ export default function Stars() {
         setEndPrice(startPrice + price);
     }, [price]);
 
-    let images = [demoMain, cloth_front, cloth_back]
+
 
     const handleShowContract = (isCheck: boolean) => {
         setShowContract(isCheck);
@@ -105,7 +135,7 @@ export default function Stars() {
 
                         <div className="flex flex-col justify-center items-center rounded text-white gap-7 w-full bg-gray-800 p-5">
                             <div className="w-full flex flex-col justify-center items-center gap-2">
-                                <h4 className="self-start text-xl text-pink-main neon-glow">有甚麼想跟{starName}說?</h4>
+                                <h4 className="self-start text-xl text-pink-main neon-glow">有甚麼想跟{star?.name}說?</h4>
                                 <textarea rows={3} className="w-full border-2 border-pink-main rounded-md caret-pink-main focus:outline-none focus:ring-1 focus:ring-pink-main"></textarea>
                             </div>
                             <div className="w-full flex flex-col justify-center items-center gap-2">
@@ -164,7 +194,7 @@ export default function Stars() {
                 <div className="flex justify-center items-center text-white gap-3">
                     <div className="w-full text-center text-3xl font-extrabold">總出價：$ {endPrice}</div>
                     <div className="w-full px-5">
-                         <button className="rounded-md bg-pink-main p-3 text-white w-full hover:scale-105 transition-all duration-300 ease-in-out ">登入 / 註冊</button>
+                        <button className="rounded-md bg-pink-main p-3 text-white w-full hover:scale-105 transition-all duration-300 ease-in-out ">登入 / 註冊</button>
                     </div>
                 </div>
             </div>

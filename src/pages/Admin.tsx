@@ -1,10 +1,9 @@
-import { createClient } from "@supabase/supabase-js";
+import { type Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react"
+import { supabase } from "../utils/SupabaseClient";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
-
-
 
 export default function Admin() {
 
@@ -18,8 +17,7 @@ export default function Admin() {
     const [stars, setStars] = useState<StarsType[]>([])
 
     const fetchData = async () => {
-        const supabase_client = createClient(apiUrl, apiKey);
-        const { data, error } = await supabase_client.from('star').select("*");
+        const { data, error } = await supabase.from('star').select("*");
         if (error) {
             console.error(error.message);
             return;
@@ -39,13 +37,10 @@ export default function Admin() {
         const { name, value, files } = e.target;
         if (name === "image" && files && files.length > 0) {
             setImg(files[0]);
-            console.log(files[0].name)
         } else if (name === "name") {
             setName(value)
-            console.log(value)
         } else if (name === "code") {
             setCode(value)
-            console.log(value)
         }
     }
 
@@ -55,10 +50,8 @@ export default function Admin() {
     }
 
     const insertData = async () => {
-        const supabase_client = createClient(apiUrl, apiKey);
-
         // 1. 上傳圖片到 Supabase Storage
-        const { data, error } = await supabase_client.storage
+        const { data, error } = await supabase.storage
             .from('starImg')
             .upload(`stars/${code}`, img)
 
@@ -68,12 +61,12 @@ export default function Admin() {
         }
 
         // 2. 取得圖片公開 URL
-        const imgUrl = supabase_client.storage
+        const imgUrl = supabase.storage
             .from('starImg')
             .getPublicUrl(`stars/${code}`).data.publicUrl
 
         // 3. 插入資料到資料表（假設表名是 'stars'）
-        const { error: insertError } = await supabase_client
+        const { error: insertError } = await supabase
             .from('star')
             .insert([{ name, code, imgUrl }])
 
@@ -83,32 +76,123 @@ export default function Admin() {
             console.log('資料插入成功')
         }
 
+        fetchData();
     }
+
+    const [isLogin, setIsLogin] = useState(true);
+    const [account, setAccount] = useState('');
+    const [password, setPassword] = useState('');
+    const [currentSession, setCurrentSession] = useState<Session | null>(null);
+
+    const handleLogin = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value, checked } = e.target;
+        if (name === "isLogin") {
+            setIsLogin(checked);
+        } else if (name === "account") {
+            setAccount(value)
+        } else if (name === "password") {
+            setPassword(value)
+        }
+    }
+
+
+    const submitRegist = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (isLogin == false) { // 註冊
+            const { error } = await supabase.auth.signUp({
+                email: account,
+                password: password,
+            })
+
+            if (error) {
+                console.error(error.message);
+                return;
+            }
+
+        } else {    // 登入
+            const { error } = await supabase.auth.signInWithPassword({
+                email: account,
+                password: password,
+            })
+
+            if (error) {
+                console.error(error.message);
+                return;
+            }
+        }
+    }
+
+    const fetchSession = async () => {
+        const { data, error } = await supabase.auth.getSession();
+
+        if (error) {
+            console.error(error.message);
+            return;
+        }
+
+        setCurrentSession(data.session)
+    }
+
+    useEffect(() => {
+        fetchSession();
+        const { data } = supabase.auth.onAuthStateChange((event, session) => {
+            setCurrentSession(session)
+        });
+
+        return () => {
+            data.subscription.unsubscribe();
+        }
+    }, [])
+
+    const logoutAction = async () => {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.error(error.message)
+            return;
+        }
+
+    }
+
 
 
     return (
         <>
-            <div className="relative z-40 flex flex-col justify-center items-center max-w-[800x] w-full gap-4 my-25 bg-white">
-                <div className="flex flex-col justify-center items-center gap-2 w-full">
-                    <input type="file" name="image" onChange={(e) => { handleInput(e) }} />
-                    <input type="text" name="name" placeholder="請輸入使用者名稱" onChange={(e) => { handleInput(e) }} />
-                    <input type="text" name="code" placeholder="請輸入使用者代號" onChange={(e) => { handleInput(e) }} />
-                    <button onClick={(e) => { submitInput(e) }}>進行上傳</button>
-                </div>
-                <div className="flex flex-col justify-center items-center gap-2 max-w-[300px] w-full">
-                    {
-                        stars.map((s) => {
-                            return (
-                                <div key={s.id} className="flex flex-col justify-center items-center w-full">
-                                    <img className="w-full" src={s.imgUrl} alt="starImg" />
-                                    <p>姓名:{s.name} 代號:{s.code}</p>
-                                </div>
-                            )
-                        })
-                    }
+            <div className="relative z-40 flex flex-col justify-center items-center max-w-[800x] w-full gap-4 my-25">
+                {
+                    currentSession != null ? (<>
+                        <div className="flex flex-col justify-center items-center gap-2 w-full">
+                            <h3 className="text-pink-main text-2xl mb-2 font-bold">Upload Files</h3>
+                            <input className="input-style" type="file" name="image" onChange={(e) => { handleInput(e) }} />
+                            <input className="input-style" type="text" name="name" placeholder="請輸入使用者名稱" onChange={(e) => { handleInput(e) }} />
+                            <input className="input-style" type="text" name="code" placeholder="請輸入使用者代號" onChange={(e) => { handleInput(e) }} />
+                            <button className="border-pink-main border-1 bg-black text-white font-extrabold p-2 rounded-md" onClick={(e) => { submitInput(e) }}>進行上傳</button>
+                            <button className="border-pink-main border-1 bg-black text-white font-extrabold p-2 rounded-md" onClick={() => { logoutAction() }}>進行登出</button>
+                        </div>
+                        <div className="flex justify-center items-center gap-2 w-full flex-wrap px-4">
+                            {
+                                stars.map((s) => {
+                                    return (
+                                        <div key={s.id} className="flex flex-col justify-center items-center w-full max-w-[300px]">
+                                            <img className="w-full" src={s.imgUrl} alt="starImg" />
+                                            <p className="text-white">姓名:{s.name} 代號:{s.code}</p>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div></>
+                    ) : (
+                        <div className="flex flex-col justify-center items-center gap-2 w-full">
+                            {/* <input className="border-black border-1" type="checkbox" name="isLogin" onChange={(e) => { handleLogin(e) }} checked={isLogin} /> */}
+                            <h3 className="text-pink-main text-2xl mb-2 font-bold">Login</h3>
+                            <input className="input-style" type="email" name="account" placeholder="請輸入帳號" value={account} onChange={(e) => { handleLogin(e) }} />
+                            <input className="input-style" type="password" name="password" placeholder="請輸入密碼" value={password} onChange={(e) => { handleLogin(e) }} />
+                            <button className="border-pink-main border-1 bg-black text-white font-extrabold p-2 rounded-md" onClick={(e) => { submitRegist(e) }}>進行登入</button>
+                        </div>
+                    )
+                }
 
-                </div>
-            </div>
+
+            </div >
         </>
     )
 }

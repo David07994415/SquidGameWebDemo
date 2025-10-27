@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 
 import HeroBanner from '../assets/hero_banner.webp'
+import HeroAssembly from '../assets/Hero_Assembly.png'
 import ChineseBanner from '../assets/Chinese_Logo S2.png'
 import Director from '../assets/directors.jpg'
 import Cloth1 from '../assets/Cloth1.png'
@@ -8,12 +9,10 @@ import Cloth2 from '../assets/Cloth2.png'
 import QAPart from '../components/QAPart'
 import Star from '../assets/001_main.webp'
 
-import { createClient } from '@supabase/supabase-js'
 import StarCard from '../components/StarCard'
 import PicSelection from '../components/PicSelection'
+import { supabase } from '../utils/SupabaseClient'
 
-const apiUrl = import.meta.env.VITE_API_URL;
-const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function Home() {
 
@@ -23,7 +22,7 @@ export default function Home() {
     answer: string,
   }
 
-  const imageClothes = [Cloth1,Cloth2];
+  const imageClothes = [Cloth1, Cloth2];
 
 
 
@@ -53,35 +52,49 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [])
 
-  const fetchData = async () => {
-    const supabase_client = createClient(apiUrl, apiKey);
-    const { data, error } = await supabase_client.from('question').select("*");
+  const fetchQAData = async () => {
+    const { data, error } = await supabase.from('question').select("*");
     if (error) {
       console.error(error.message);
       return;
     }
     setQuestions(data)
   }
+
+  type starType = {
+    id: number,
+    name: string,
+    code: string,
+    imgUrl: string,
+    keyword: string
+  }
+
+  const [stars, setStars] = useState<starType[]>([]);
+  const [starsSelect, setStarsSelect] = useState<starType[]>([]);
+
+  const fetchStarData = async () => {
+    const { data, error } = await supabase.from('star').select("*");
+    if (error) {
+      console.error(error.message);
+      return;
+    }
+    let dataSetKeyword: starType[] = data.map((d) => {
+      let code_int = parseInt(d.code);
+      return { ...d, keyword: `${d.name} ${d.code} ${code_int.toString()}` }
+    })
+
+    setStars(dataSetKeyword)
+    setStarsSelect(dataSetKeyword)
+  }
+
   useEffect(() => {
-    // fetchData();
+    fetchQAData();
+    fetchStarData();
   }, [])
 
-
-
-  
-
-  let starDemo = [
-    { id: 1, name: "阿修", keyword: "阿修 001 1" },
-    { id: 2, name: "阿明", keyword: "阿明 002 2" },
-    { id: 3, name: "阿三", keyword: "阿三 003 3" },
-    { id: 4, name: "阿四", keyword: "阿四 004 4" },
-    { id: 5, name: "五個", keyword: "五個 005 5" },
-    { id: 6, name: "六隻", keyword: "六隻 006 6" },
-  ]
-  const [stars, setStars] = useState(starDemo);
   const searchStar = (searchKeyword: string) => {
-    const searchStars = starDemo.filter(x => x.keyword.includes(searchKeyword));
-    setStars(searchStars);
+    const searchStars = stars.filter(x => x.keyword.includes(searchKeyword));
+    setStarsSelect(searchStars);
   }
 
 
@@ -93,7 +106,7 @@ export default function Home() {
       {/* 背景圖片 */}
       <div id="mainpicpart"
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat h-screen"
-        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url(${HeroBanner})` }}
+        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url(${HeroAssembly})` }}
       ></div>
 
 
@@ -199,8 +212,8 @@ export default function Home() {
       <div className='relative w-full flex justify-center items-center bg-stone-800'>
         <div className="w-full lg:min-w-1/2">
           <div className='flex flex-col justify-center items-center gap-3 p-3'>
-            
-          <PicSelection images={imageClothes} />
+
+            <PicSelection images={imageClothes} />
 
             <div className="text-sm text-white">*參賽者戰衣示意圖</div>
           </div>
@@ -229,12 +242,12 @@ export default function Home() {
           </div>
 
           {
-            stars.length != 0 ? (
+            starsSelect.length != 0 ? (
               <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 p-5'>
                 {
-                  stars.map((s) => {
+                  starsSelect.map((s) => {
                     return (
-                      <StarCard key={s.id} id={s.id}></StarCard>
+                      <StarCard key={s.id} id={s.id} imgUrl={s.imgUrl}></StarCard>
                     )
                   })
                 }
@@ -243,7 +256,7 @@ export default function Home() {
               <div className="text-center text-white text-xl">沒有找到相關藝人</div>
             )
           }
-          
+
 
 
         </div>

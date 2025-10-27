@@ -10,12 +10,17 @@
 
 @layer base {
 
-  html {
-  
-    font-family: "Inter", sans-serif;
-      
+  @font-face {
+    font-family: 'Digital-7';
+    src: url('/src/assets/digital-7.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
   }
 
+
+  html {
+    font-family: "Inter", sans-serif;  
+  }
 }
 
 
@@ -50,6 +55,10 @@
 
   .font-digits{
     font-family: Digital-7, "Courier New", Consolas, monospace;
+  }
+
+  .input-style{
+    @apply border-pink-main border-1  placeholder:text-gray-500 focus:outline-none focus:border-2 p-2 rounded-md text-white
   }
 }
 
