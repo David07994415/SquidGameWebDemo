@@ -87,7 +87,7 @@ export default function MainLayout() {
                                     <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">退款政策</div>
                                 </div>
                             </li>
-                            <li><a className='hover:neon-glow' href='#qapart'>常見問題</a></li>
+                            <li><Link className='hover:neon-glow' to='/#qapart'>常見問題</Link></li>
                         </ul>
                     )}
                     <div className="hidden lg:block">
@@ -120,9 +120,9 @@ export default function MainLayout() {
                             </div>
 
                             <div className="flex flex-1 flex-col gap-4 p-5 text-white border-t-2 border-gray-800 overflow-y-scroll h-[80vh]">
-                                <a className="text-bold text-xl" href="#mainpicpart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>首頁</a>
-                                <a className="text-bold text-xl" href="#aucationrulepart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>參與競標</a>
-                                <a className="text-bold text-xl" href="#qapart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>常見問題</a>
+                                <Link className="text-bold text-xl" to="/#mainpicpart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>首頁</Link>
+                                <Link className="text-bold text-xl" to="/#aucationrulepart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>參與競標</Link>
+                                <Link className="text-bold text-xl" to="/#qapart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>常見問題</Link>
                                 <div className="flex flex-col gap-3 text-white pt-3 border-t-2 border-gray-800">
                                     <div className='text-bold text-xl text-pink-main'>拍賣資訊</div>
                                     <div className="flex flex-col gap-3 p-5 pt-0 text-white ">

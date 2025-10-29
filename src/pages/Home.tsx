@@ -12,6 +12,9 @@ import Star from '../assets/001_main.webp'
 import StarCard from '../components/StarCard'
 import PicSelection from '../components/PicSelection'
 import { supabase } from '../utils/SupabaseClient'
+import { useLocation } from 'react-router'
+import ScrollSection from '../utils/ScrollSection'
+
 
 
 export default function Home() {
@@ -22,10 +25,16 @@ export default function Home() {
     answer: string,
   }
 
+  let location = useLocation();
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash) {
+      const hashId = location.hash.replace("#", "");
+      ScrollSection(hashId);
+    }
+  }, [location]);
+
   const imageClothes = [Cloth1, Cloth2];
-
-
-
   const [questions, setQuestions] = useState<questionType[]>([]);
 
   const countdownRef = useRef<HTMLDivElement>(null);
