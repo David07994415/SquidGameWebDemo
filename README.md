@@ -1,75 +1,65 @@
-# React + TypeScript + Vite
+## 開發框架：
+### 前端：
+- React：主要框架(Router)
+- TypeScript：型別管理
+- Tailwind：CSS 樣式管理
+- Vite：編譯工具
+    
+### 後端：
+- Supabase：資料庫(Postgre)與後台授權功能(Auth)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 部署：
+- Vercel：雲端部署
 
-Currently, two official plugins are available:
+</br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 相關連結：
+### Demo 網站連結：
+### 參考網站：https://trialanderror.stanly.co
+### 本網站作品僅供個人學習使用，非用於商業用途
 
-## React Compiler
+</br>
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## 主要功能：
+1. 前台(Home Page)：提供使用者查閱相關競標資訊
+2. 後台(Admin Page)：新增藝人資訊與上傳照片至
 
-Note: This will impact Vite dev & build performances.
+</br>
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 專案架構
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── public
+├── README.md
+├── src
+|  ├── App.css
+|  ├── App.tsx
+|  ├── assets
+|  ├── components
+|  |  ├── AuctionRulePart.tsx
+|  |  ├── PicSelection.tsx
+|  |  ├── QAPart.tsx
+|  |  └── StarCard.tsx
+|  ├── hooks
+|  |  └── useHash.js
+|  ├── index.css
+|  ├── layouts
+|  |  └── MainLayout.tsx
+|  ├── main.tsx
+|  ├── pages
+|  |  ├── Admin.tsx
+|  |  ├── AuctionRule.tsx
+|  |  ├── Home.tsx
+|  |  ├── Stars.tsx
+|  |  └── Unknown.tsx
+|  └── utils
+|     ├── ScrollSection.tsx
+|     └── SupabaseClient.tsx
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```

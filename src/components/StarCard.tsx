@@ -1,4 +1,3 @@
-import Star from '../assets/001_main.webp'
 import { Link } from 'react-router'
 
 type StarCardProps = {

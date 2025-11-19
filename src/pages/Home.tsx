@@ -1,13 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 
-import HeroBanner from '../assets/hero_banner.webp'
 import HeroAssembly from '../assets/Hero_Assembly.png'
 import ChineseBanner from '../assets/Chinese_Logo S2.png'
 import Director from '../assets/directors.jpg'
-import Cloth1 from '../assets/Cloth1.png'
-import Cloth2 from '../assets/Cloth2.png'
+import Cloth1 from '../assets/Superman_Cloth_1.png'
+import Cloth2 from '../assets/Superman_Cloth_2.png'
 import QAPart from '../components/QAPart'
-import Star from '../assets/001_main.webp'
 
 import StarCard from '../components/StarCard'
 import PicSelection from '../components/PicSelection'
@@ -38,11 +36,11 @@ export default function Home() {
   const [questions, setQuestions] = useState<questionType[]>([]);
 
   const countdownRef = useRef<HTMLDivElement>(null);
-  const endTime = new Date('2025-11-26T23:59:00+08:00').getTime();
+  const endTime = new Date('2025-12-30T23:59:00+08:00');
   useEffect(() => {
     const timer = setInterval(() => {
       const nowTime = Date.now();
-      const diffTime = endTime - nowTime;
+      const diffTime = endTime.getTime() - nowTime;
       if (countdownRef.current) {
         if (diffTime < 0) {
           countdownRef.current.textContent = '已結束';
@@ -139,7 +137,7 @@ export default function Home() {
           <div className='flex flex-col justify-center items-center gap-4' >
             <div className="text-white">拍賣結束時間</div>
             <div className="text-pink-500 text-3xl font-black" ref={countdownRef}>剩下...</div>
-            <div className="text-white text-xs">拍賣結束時間： 26/10/2025 23:59 香港時間</div>
+            <div className="text-white text-xs">拍賣結束時間： {endTime.getDate()}/{endTime.getMonth()+1}/{endTime.getFullYear()} {endTime.getHours()}:{endTime.getMinutes()} 香港時間</div>
           </div>
         </div>
       </div>
@@ -218,7 +216,7 @@ export default function Home() {
       </div>
 
       {/* 衣服展示 */}
-      <div className='relative w-full flex justify-center items-center bg-stone-800'>
+      <div className='relative z-30 w-full flex justify-center items-center bg-stone-800'>
         <div className="w-full lg:min-w-1/2">
           <div className='flex flex-col justify-center items-center gap-3 p-3'>
 
@@ -236,7 +234,7 @@ export default function Home() {
       </div>
 
       {/* 藝人Card */}
-      <div className="relative z-40 w-full my-12">
+      <div className="relative z-30 w-full my-12">
         <div className='flex flex-col justify-center items-center gap-10 max-w-5xl mx-auto'>
           <h2 className="text-4xl text-center text-pink-main neon-glow font-[1200]" >選擇你的藝人
           </h2>

@@ -1,6 +1,7 @@
 import { type Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react"
 import { supabase } from "../utils/SupabaseClient";
+import PageTitlePart from "../components/PageTitlePart";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -157,7 +158,9 @@ export default function Admin() {
 
     return (
         <>
-            <div className="relative z-40 flex flex-col justify-center items-center max-w-[800x] w-full gap-4 my-25">
+            <div className="relative z-30 flex flex-col justify-center items-center max-w-[800x] w-full gap-4 my-25">
+                <PageTitlePart mainTitles={["後台管理"]} subTitle="請先進行登入" description=""
+                ></PageTitlePart>
                 {
                     currentSession != null ? (<>
                         <div className="flex flex-col justify-center items-center gap-2 w-full">

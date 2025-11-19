@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, type RefObject } from 'react'
 import { Link, NavLink, Outlet } from "react-router"
 
-import LogoWhite from '../assets/Logo_white.png'
+import LogoWhite from '../assets/logo_TE_resize.png'
 import Circle from '../assets/circle.svg'
 import Square from '../assets/square.svg'
 import Rect from '../assets/rect.svg'
@@ -10,6 +10,17 @@ import Rect from '../assets/rect.svg'
 export default function MainLayout() {
 
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
+
+    const auctionLinks = [
+        { name: "拍賣規則", path: "/auctionrule#top" },
+        { name: "付款方式", path: "/payment#top" },
+        { name: "運送資訊", path: "/delivery#top" }
+    ]
+
+    const policyLinks = [
+        { name: "隱私政策", path: "/privacy#top" },
+        { name: "退款資訊", path: "/refund#top" },
+    ]
 
     const auctionLinkRef = useRef<HTMLDivElement>(null);
     const policyLinkRef = useRef<HTMLDivElement>(null);
@@ -31,11 +42,17 @@ export default function MainLayout() {
         }
     }
 
+    const linktoHandler = (refItem: RefObject<HTMLDivElement | null>) => {
+        if (refItem.current) {
+            refItem.current.classList.toggle("hidden")
+        }
+    }
+
 
 
 
     return (
-        <div className='bg-stone-700 min-h-screen relative overflow-hidden'>
+        <div className='bg-stone-700 min-h-screen relative overflow-hidden' id="top">
 
             {/* ICON 背景 區塊 */}
             <div className="iconPosition span-animation top-[33%] left-[20%]"><img className="w-full span-animation" src={Circle} alt="CircleIcon" /></div>
@@ -47,7 +64,7 @@ export default function MainLayout() {
 
 
             {/* 導覽列-電腦 */}
-            <div className="fixed inset-0 z-40 max-w-7xl mx-auto">
+            <div className="fixed inset-x-0 top-0 z-40 max-w-7xl mx-auto">
                 <nav className="flex justify-between items-center p-3">
                     <div className="flex justify-center items-center gap-1">
                         <div className="max-w-[40px]"><img className='w-full' src={LogoWhite} alt="Logo_white" /></div>
@@ -57,10 +74,10 @@ export default function MainLayout() {
                     </div>
                     {!toggleHamburger && (
                         <ul className="hidden lg:flex justify-center items-center gap-4 text-white text-md font-bold">
-                            <li><Link className='hover:neon-glow' to="/#mainpicpart">首頁</Link></li>
-                            <li><Link className='hover:neon-glow' to="/#aucationrulepart">參與競標</Link></li>
+                            <li><Link className='hover:neon-glow cursor-pointer' to="/#mainpicpart">首頁</Link></li>
+                            <li><Link className='hover:neon-glow cursor-pointer' to="/#aucationrulepart">參與競標</Link></li>
                             <li>
-                                <button className='hover:neon-glow relative' onClick={() => { auctionLinkBtnHandler() }} >
+                                <button className='hover:neon-glow relative cursor-pointer' onClick={() => { auctionLinkBtnHandler() }} >
                                     <div className="flex justify-center items-center">
                                         <div>拍賣資訊</div>
                                         <div className="material-symbols-outlined">
@@ -69,13 +86,26 @@ export default function MainLayout() {
                                     </div>
                                 </button>
                                 <div ref={auctionLinkRef} className="hidden absolute buttom-0 flex flex-col justify-center items-start gap-2 rounded-md border-pink-500 border-2 p-1 bg-black text-md z-[45] w-[150px]">
-                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">拍賣規則</div>
-                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">付款方式</div>
-                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">運送資訊</div>
+
+                                    {
+                                        auctionLinks.map(l => {
+                                            return (
+                                                <Link
+                                                    key={l.path}
+                                                    to={l.path}
+                                                    className='w-full'
+                                                    onClick={() => { linktoHandler(auctionLinkRef) }}
+                                                >
+                                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1 cursor-pointer">{l.name}</div>
+                                                </Link>
+                                            )
+                                        })
+                                    }
+
                                 </div>
                             </li>
                             <li><button className='hover:neon-glow relative' onClick={() => { policyLinkBtnHandler() }}>
-                                <div className="flex justify-center items-center">
+                                <div className="flex justify-center items-center cursor-pointer">
                                     <div>政策條款</div>
                                     <div className="material-symbols-outlined">
                                         stat_minus_1
@@ -83,15 +113,28 @@ export default function MainLayout() {
                                 </div>
                             </button>
                                 <div ref={policyLinkRef} className="hidden absolute buttom-0 flex flex-col justify-center items-start gap-2 rounded-lg border-pink-500 border-2 p-1 bg-black text-md z-[45] w-[150px]">
-                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">隱私政策</div>
-                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1">退款政策</div>
+
+                                    {
+                                        policyLinks.map(l => {
+                                            return (
+                                                <Link
+                                                    key={l.path}
+                                                    to={l.path}
+                                                    className='w-full'
+                                                    onClick={() => { linktoHandler(policyLinkRef) }}
+                                                >
+                                                    <div className="hover:bg-pink-main hover:text-black rounded-md w-full p-1 cursor-pointer">{l.name}</div>
+                                                </Link>
+                                            )
+                                        })
+                                    }
                                 </div>
                             </li>
-                            <li><Link className='hover:neon-glow' to='/#qapart'>常見問題</Link></li>
+                            <li><Link className='hover:neon-glow cursor-pointer' to='/#qapart'>常見問題</Link></li>
                         </ul>
                     )}
                     <div className="hidden lg:block">
-                        <button className="rounded-md bg-pink-500 p-3 text-white">登入 / 註冊</button>
+                        {/* <button className="rounded-md bg-pink-500 p-3 text-white">登入 / 註冊</button> */}
                     </div>
                     <div className="lg:hidden text-white">
                         <button onClick={() => { setToggleHamburger(!toggleHamburger) }}>
@@ -114,28 +157,55 @@ export default function MainLayout() {
                                 <div className="self-end">
                                     <button className="text-pink-main px-6 text-lg" onClick={() => { setToggleHamburger(!toggleHamburger) }} >X</button>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <button className="rounded-md bg-pink-main p-3 text-white w-[90vw]">登入 / 註冊</button>
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="flex flex-1 flex-col gap-4 p-5 text-white border-t-2 border-gray-800 overflow-y-scroll h-[80vh]">
-                                <Link className="text-bold text-xl" to="/#mainpicpart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>首頁</Link>
-                                <Link className="text-bold text-xl" to="/#aucationrulepart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>參與競標</Link>
-                                <Link className="text-bold text-xl" to="/#qapart"  onClick={() => { setToggleHamburger(!toggleHamburger) }}>常見問題</Link>
+                                <Link className="text-bold text-xl cursor-pointer" to="/#mainpicpart" onClick={() => { setToggleHamburger(!toggleHamburger) }}>首頁</Link>
+                                <Link className="text-bold text-xl cursor-pointer" to="/#aucationrulepart" onClick={() => { setToggleHamburger(!toggleHamburger) }}>參與競標</Link>
+                                <Link className="text-bold text-xl cursor-pointer" to="/#qapart" onClick={() => { setToggleHamburger(!toggleHamburger) }}>常見問題</Link>
                                 <div className="flex flex-col gap-3 text-white pt-3 border-t-2 border-gray-800">
                                     <div className='text-bold text-xl text-pink-main'>拍賣資訊</div>
                                     <div className="flex flex-col gap-3 p-5 pt-0 text-white ">
-                                        <div className="text-bold text-xl">拍賣規定</div>
-                                        <div className="text-bold text-xl">付款方式</div>
-                                        <div className="text-bold text-xl">運送方式</div>
+
+                                        {
+                                            auctionLinks.map(l => {
+                                                return (
+
+                                                    <Link 
+                                                        key={l.path}
+                                                        to={l.path}
+                                                        className='w-full'
+                                                        onClick={() => { setToggleHamburger(!toggleHamburger) }}
+                                                    >
+                                                        <div className="text-bold text-xl cursor-pointer">{l.name}</div>
+                                                    </Link>
+                                                )
+                                            })
+                                        }
+
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-3 text-white pt-3 border-t-2 border-gray-800">
                                     <div className='text-bold text-xl text-pink-main'>政策條款</div>
                                     <div className="flex flex-col gap-3 p-5 pt-0 text-white ">
-                                        <div className="text-bold text-xl">隱私政策</div>
-                                        <div className="text-bold text-xl">退款政策</div>
+                                        {
+                                            policyLinks.map(l => {
+                                                return (
+
+                                                    <Link 
+                                                        key={l.path}
+                                                        to={l.path}
+                                                        className='w-full'
+                                                        onClick={() => { setToggleHamburger(!toggleHamburger) }}
+                                                    >
+                                                        <div className="text-bold text-xl cursor-pointer">{l.name}</div>
+                                                    </Link>
+                                                )
+                                            })
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -145,6 +215,15 @@ export default function MainLayout() {
             }
 
             <Outlet />
+
+
+            {/* 至底導覽 */}
+            <div className="w-full relative z-30 my-10">
+                <div className='flex justify-center items-center'>
+                    <p className='text-white'>@本網站作品僅供個人學習使用，非用於商業用途</p>
+                </div>
+
+            </div>
         </div>
     )
 }
