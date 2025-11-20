@@ -1,5 +1,5 @@
 import { useRef, useState, type RefObject } from 'react'
-import { Link, NavLink, Outlet } from "react-router"
+import { Link, Outlet } from "react-router"
 
 import LogoWhite from '../assets/logo_TE_resize.png'
 import Circle from '../assets/circle.svg'
@@ -66,12 +66,14 @@ export default function MainLayout() {
             {/* 導覽列-電腦 */}
             <div className="fixed inset-x-0 top-0 z-40 max-w-7xl mx-auto">
                 <nav className="flex justify-between items-center p-3">
-                    <div className="flex justify-center items-center gap-1">
-                        <div className="max-w-[40px]"><img className='w-full' src={LogoWhite} alt="Logo_white" /></div>
-                        <div className="min-w-[32px] w-[32px]"><img className='w-full filter_pink' src={Circle} alt="Circle" /></div>
-                        <div className="min-w-[32px] w-[32px]"><img className='w-full filter_blue' src={Square} alt="Square" /></div>
-                        <div className="min-w-[32px] w-[32px]"><img className='w-full filter_green' src={Rect} alt="Rect" /></div>
-                    </div>
+                    <Link className='cursor-pointer ' to="/#mainpicpart">
+                        <div className="flex justify-center items-center gap-1">
+                            <div className="max-w-[40px]"><img className='w-full' src={LogoWhite} alt="Logo_white" /></div>
+                            <div className="min-w-[32px] w-[32px]"><img className='w-full filter_pink' src={Circle} alt="Circle" /></div>
+                            <div className="min-w-[32px] w-[32px]"><img className='w-full filter_blue' src={Square} alt="Square" /></div>
+                            <div className="min-w-[32px] w-[32px]"><img className='w-full filter_green' src={Rect} alt="Rect" /></div>
+                        </div>
+                    </Link>
                     {!toggleHamburger && (
                         <ul className="hidden lg:flex justify-center items-center gap-4 text-white text-md font-bold">
                             <li><Link className='hover:neon-glow cursor-pointer' to="/#mainpicpart">首頁</Link></li>
@@ -174,7 +176,7 @@ export default function MainLayout() {
                                             auctionLinks.map(l => {
                                                 return (
 
-                                                    <Link 
+                                                    <Link
                                                         key={l.path}
                                                         to={l.path}
                                                         className='w-full'
@@ -195,7 +197,7 @@ export default function MainLayout() {
                                             policyLinks.map(l => {
                                                 return (
 
-                                                    <Link 
+                                                    <Link
                                                         key={l.path}
                                                         to={l.path}
                                                         className='w-full'

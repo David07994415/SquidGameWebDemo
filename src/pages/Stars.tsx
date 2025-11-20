@@ -6,9 +6,6 @@ import { useEffect, useState, useRef } from "react";
 import AuctionRulePart from "../components/AuctionRulePart";
 import { supabase } from "../utils/SupabaseClient";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-const apiKey = import.meta.env.VITE_API_KEY;
-
 export default function Stars() {
     let { starId } = useParams();
     //let images = [demoMain, cloth_front, cloth_back];
@@ -193,7 +190,7 @@ export default function Stars() {
                 <div className="flex justify-center items-center text-white gap-3">
                     <div className="w-full text-center text-3xl font-extrabold">總出價：$ {endPrice}</div>
                     <div className="w-full px-5">
-                        <button className="rounded-md bg-pink-main p-3 text-white w-full hover:scale-105 transition-all duration-300 ease-in-out ">登入 / 註冊</button>
+                        <button className="rounded-md bg-pink-main p-3 text-white w-full hover:scale-105 transition-all duration-300 ease-in-out ">確認出價</button>
                     </div>
                 </div>
             </div>

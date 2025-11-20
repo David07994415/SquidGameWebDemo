@@ -3,9 +3,6 @@ import { useEffect, useState } from "react"
 import { supabase } from "../utils/SupabaseClient";
 import PageTitlePart from "../components/PageTitlePart";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-const apiKey = import.meta.env.VITE_API_KEY;
-
 export default function Admin() {
 
     type StarsType = {
@@ -52,7 +49,7 @@ export default function Admin() {
 
     const insertData = async () => {
         // 1. 上傳圖片到 Supabase Storage
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
             .from('starImg')
             .upload(`stars/${code}`, img)
 
@@ -136,7 +133,7 @@ export default function Admin() {
 
     useEffect(() => {
         fetchSession();
-        const { data } = supabase.auth.onAuthStateChange((event, session) => {
+        const { data } = supabase.auth.onAuthStateChange((_event, session) => {
             setCurrentSession(session)
         });
 
