@@ -16,7 +16,7 @@ export default function Refund() {
 
     return (<>
         <div className="relative w-full my-25">
-            <div className="flex flex-col justify-center items-center gap-6 w-full text-white px-20">
+            <div className="flex flex-col justify-center items-center gap-6 w-full text-white lg:px-20 px-5">
                 <div className="self-center">
                     <PageTitlePart mainTitles={["退款政策"]} subTitle="拍賣退款條款於申請流程" description=""
                     ></PageTitlePart>

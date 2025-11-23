@@ -16,7 +16,7 @@ export default function privacy() {
 
     return (<>
         <div className="relative w-full my-25">
-            <div className="flex flex-col justify-center items-center gap-6 w-full text-white px-20">
+            <div className="flex flex-col justify-center items-center gap-6 w-full text-white lg:px-20 px-5">
                 <div className="self-center">
                     <PageTitlePart mainTitles={["個人資料收集"]} subTitle="保護您的個人資料與隱私權益" description=""
                     ></PageTitlePart>

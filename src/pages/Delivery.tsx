@@ -16,7 +16,7 @@ export default function Delivery() {
 
     return (<>
         <div className="relative w-full my-25">
-            <div className="flex flex-col justify-center items-center gap-6 w-full text-white px-20">
+            <div className="flex flex-col justify-center items-center gap-6 w-full text-white lg:px-20 px-5">
                 <div className="self-center">
                     <PageTitlePart mainTitles={["運送資訊"]} subTitle="商品配送與物流資訊" description=""
                     ></PageTitlePart>

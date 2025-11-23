@@ -16,7 +16,7 @@ export default function Payment() {
 
     return (<>
         <div className="relative w-full my-25">
-            <div className="flex flex-col justify-center items-center gap-6 w-full text-white px-20">
+            <div className="flex flex-col justify-center items-center gap-6 w-full text-white lg:px-20 px-5">
                 <div className="self-center">
                     <PageTitlePart mainTitles={["付款方式"]} subTitle="安全便捷的付款選項" description=""
                     ></PageTitlePart>
@@ -24,7 +24,7 @@ export default function Payment() {
 
                 <div className="flex flex-col lg:flex-row justify-center items-center lg:items-stretch gap-4 w-full max-w-[1024px]">
 
-                    <div className="max-w-[400px] w-full bg-stone-600/50 rounded-lg backdrop-blur-xs flex flex-col justify-start items-start p-16 gap-4">
+                    <div className="max-w-[400px] w-full bg-stone-600/50 rounded-lg backdrop-blur-xs flex flex-col justify-start items-start p-4 lg:p-16 gap-4">
                         <h4 className="text-white filter_pink text-2xl font-extrabold">支援信用卡付款
                         </h4>
                         <div className="flex justify-center items-center gap-2 text-green-main text-xl font-extrabold">
@@ -39,7 +39,7 @@ export default function Payment() {
                             <li>• Google Pay</li>
                         </ul>
                     </div>
-                    <div className="max-w-[400px] w-full bg-stone-600/50 rounded-lg backdrop-blur-xs flex flex-col justify-start items-start p-16 gap-4">
+                    <div className="max-w-[400px] w-full bg-stone-600/50 rounded-lg backdrop-blur-xs flex flex-col justify-start items-start p-4 lg:p-16 gap-4">
                         <h4 className="text-white filter_pink text-2xl font-extrabold">付款重要事項
                         </h4>
                         <p>系統會根據你的選擇，於以下情況進行信用卡扣款：</p>

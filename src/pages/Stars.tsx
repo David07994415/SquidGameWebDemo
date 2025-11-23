@@ -94,13 +94,16 @@ export default function Stars() {
     return (
         <>
             <div className="relative w-full my-25 z-30">
-                <div className="flex justify-center items-start gap-8 px-3">
+                <div className="flex flex-col items-center lg:flex-row justify-center lg:items-start gap-8 px-3">
+
+                    <h2 className="text-3xl block lg:hidden text-center text-pink-main neon-glow font-[1200]" >案標拍賣規則</h2>
+
                     <div className="max-w-[500px] w-full mt-5 rounded-md border-2 border-pink-main">
                         <PicSelection images={images}></PicSelection>
                     </div>
                     <div className="max-w-[500px] w-full flex flex-col justify-start items-center gap-5 relative">
 
-                        <h2 className="text-3xl text-center text-pink-main neon-glow font-[1200]" >案標拍賣規則</h2>
+                        <h2 className="text-3xl hidden lg:block text-center text-pink-main neon-glow font-[1200]" >案標拍賣規則</h2>
                         <div className="flex flex-col justify-center items-center rounded text-white gap-5 w-full bg-gray-800 p-5">
                             <h4 className="self-start text-xl text-pink-main neon-glow">你的出價</h4>
 
@@ -117,7 +120,7 @@ export default function Stars() {
                                         <span className="text-3xl">+ </span>
                                         <div className="w-full border-red-500 flex justify-center items-start border-2 border-pink-main">
                                             <button className="p-2 bg-slate-700 text-xl" onClick={() => { handlePrice(-100) }}>-</button>
-                                            <input type="text" className="w-[150px] text-center py-2 text-green-main text-xl" value={price} onChange={(e) => { handleInputPrice(e.target.value) }} />
+                                            <input type="text" className="w-[50px] lg:w-[150px] text-center py-2 text-green-main text-xl" value={price} onChange={(e) => { handleInputPrice(e.target.value) }} />
 
                                             <button className="p-2 bg-pink-main text-xl" onClick={() => { handlePrice(100) }}>+</button>
                                         </div>
@@ -156,7 +159,7 @@ export default function Stars() {
             </div>
             {
                 showContract && (
-                    <div className="fixed top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 z-30 max-w-3xl bg-slate-800 text-white max-h-[600px] border-2 border-pink-main rounded-md" style={{ scrollbarWidth: 'thin', scrollbarColor: "rgb(237, 27, 118) rgba(31, 41, 55, 0.3)" }}>
+                    <div className="fixed w-4/5 top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 z-30 max-w-5xl bg-slate-800 text-white max-h-[600px] border-2 border-pink-main rounded-md" style={{ scrollbarWidth: 'thin', scrollbarColor: "rgb(237, 27, 118) rgba(31, 41, 55, 0.3)" }}>
                         <div className="flex flex-col jusify-center items-center w-full gap-3 p-3 pt-4">
                             <h4 className="self-start font-extrabold text-xl">拍賣條款與細則</h4>
                             <div ref={scrollRef} className="w-full max-h-[200px] bg-black p-2 overflow-y-auto">

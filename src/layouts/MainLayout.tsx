@@ -1,4 +1,4 @@
-import { useRef, useState, type RefObject } from 'react'
+import { useRef, useState,useEffect, type RefObject } from 'react'
 import { Link, Outlet } from "react-router"
 
 import LogoWhite from '../assets/logo_TE_resize.png'
@@ -16,6 +16,15 @@ export default function MainLayout() {
         { name: "付款方式", path: "/payment#top" },
         { name: "運送資訊", path: "/delivery#top" }
     ]
+
+    // 背景頁面凍結
+    useEffect(()=>{
+        if(toggleHamburger==true){
+            document.body.style.overflow = "hidden";
+        }else{
+            document.body.style.overflow = "auto";
+        }
+    },[toggleHamburger])
 
     const policyLinks = [
         { name: "隱私政策", path: "/privacy#top" },
@@ -220,7 +229,7 @@ export default function MainLayout() {
 
 
             {/* 至底導覽 */}
-            <div className="w-full relative z-30 my-10">
+            <div className="w-full relative z-30 my-10 px-5">
                 <div className='flex justify-center items-center'>
                     <p className='text-white'>@本網站作品僅供個人學習使用，非用於商業用途</p>
                 </div>
